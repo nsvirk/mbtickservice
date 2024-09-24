@@ -32,8 +32,6 @@ func ResponseLog(db *gorm.DB, userID, botID, ticksChannel string, subscribedCt i
 
 	// Log
 	responseLog := map[string]string{
-		"user_id":       userID,
-		"bot_id":        botID,
 		"ticks_channel": ticksChannel,
 		"subscribed_ct": fmt.Sprintf("%d", subscribedCt),
 	}
