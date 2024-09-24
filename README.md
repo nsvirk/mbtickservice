@@ -1,5 +1,17 @@
 # Moneybots TICK Service
 
+## Run the application
+
+```bash
+go run cmd/server/main.go
+```
+
+## Build the application
+
+```bash
+go build -o build/bin/mbtickservice cmd/server/main.go
+```
+
 ## Project Structure
 
 ```text
@@ -37,16 +49,4 @@ mbtickservice/
 ├── go.mod
 ├── go.sum
 └── README.md
-```
-
-## Run the application
-
-```bash
-go run cmd/server/main.go
-```
-
-## Build the application
-
-```bash
-go build -o build/bin/mbtickservice cmd/server/main.go
 ```
