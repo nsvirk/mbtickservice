@@ -10,14 +10,12 @@ import (
 
 // AppLogger is the main struct for the logger
 type AppLogger struct {
-	db     *gorm.DB
-	userID string
-	botID  string
+	db *gorm.DB
 }
 
 // NewLogger creates a new logger
-func NewAppLogger(db *gorm.DB, userID, botID string) *AppLogger {
-	return &AppLogger{db: db, userID: userID, botID: botID}
+func NewAppLogger(db *gorm.DB) *AppLogger {
+	return &AppLogger{db: db}
 }
 
 // Log logs a message
@@ -25,8 +23,6 @@ func (l *AppLogger) Log(level, message string) error {
 	now := time.Now()
 	log := models.Log{
 		Timestamp: now,
-		UserID:    l.userID,
-		BotID:     l.botID,
 		Level:     level,
 		Message:   message,
 	}

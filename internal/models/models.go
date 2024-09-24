@@ -8,13 +8,12 @@ import (
 )
 
 var (
-	SchemaName              = getSchemaName()
-	UsersTable              = SchemaName + "." + "users"
-	TickerInstrumentsTable  = SchemaName + "." + "ticker_instruments"
-	LogsTable               = SchemaName + "." + "logs"
-	TickerLogsTable         = SchemaName + "." + "ticker_logs"
-	TickerInstanceLogsTable = SchemaName + "." + "ticker_instance_logs"
-	InstrumentsTable        = "api.instruments"
+	SchemaName             = getSchemaName()
+	UsersTable             = SchemaName + "." + "users"
+	TickerInstrumentsTable = SchemaName + "." + "ticker_instruments"
+	LogsTable              = SchemaName + "." + "logs"
+	TickerLogsTable        = SchemaName + "." + "ticker_logs"
+	InstrumentsTable       = "api.instruments"
 )
 
 func getSchemaName() string {
@@ -58,8 +57,6 @@ func (TickerInstrument) TableName() string {
 type Log struct {
 	ID        uint32 `gorm:"primaryKey"`
 	Timestamp time.Time
-	BotID     string
-	UserID    string
 	Level     string
 	Message   string
 }
@@ -81,17 +78,4 @@ type TickerLog struct {
 
 func (TickerLog) TableName() string {
 	return TickerLogsTable
-}
-
-// TickerInstance represents the ticker instances table
-type TickerInstanceLog struct {
-	ID          uint32 `gorm:"primaryKey"`
-	UserID      string
-	BotID       string
-	Instance    string
-	ConnectedAt time.Time `gorm:"autoUpdateTime"`
-}
-
-func (TickerInstanceLog) TableName() string {
-	return TickerInstanceLogsTable
 }

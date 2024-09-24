@@ -42,7 +42,7 @@ func InitDB(cfg *config.Config) (*gorm.DB, error) {
 	}
 
 	// Auto migrate the schema
-	err = db.AutoMigrate(&models.User{}, &models.TickerInstrument{}, &models.Log{}, &models.TickerLog{}, &models.TickerInstanceLog{})
+	err = db.AutoMigrate(&models.User{}, &models.TickerInstrument{}, &models.Log{}, &models.TickerLog{})
 	if err != nil {
 		return nil, fmt.Errorf("failed to migrate database: %w", err)
 	}

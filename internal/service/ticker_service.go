@@ -16,12 +16,11 @@ import (
 )
 
 type TickerService struct {
-	db                   *gorm.DB
-	redisClient          *repository.RedisClient
-	tickers              map[string]*TickerInstance
-	mu                   sync.Mutex
-	tickerLogger         *logger.TickerLogger
-	tickerInstanceLogger *logger.TickerInstanceLogger
+	db           *gorm.DB
+	redisClient  *repository.RedisClient
+	tickers      map[string]*TickerInstance
+	mu           sync.Mutex
+	tickerLogger *logger.TickerLogger
 }
 
 type TickerInstance struct {
@@ -38,11 +37,10 @@ type Tick struct {
 
 func NewTickerService(db *gorm.DB, redisClient *repository.RedisClient) *TickerService {
 	return &TickerService{
-		db:                   db,
-		redisClient:          redisClient,
-		tickers:              make(map[string]*TickerInstance),
-		tickerLogger:         logger.NewTickerLogger(db),
-		tickerInstanceLogger: logger.NewTickerInstanceLogger(db),
+		db:           db,
+		redisClient:  redisClient,
+		tickers:      make(map[string]*TickerInstance),
+		tickerLogger: logger.NewTickerLogger(db),
 	}
 }
 
@@ -117,8 +115,49 @@ func (s *TickerService) StartTicker(userID, enctoken, botID string, tickerInstru
 	// Store ticker instance
 	s.tickers[key] = instance
 
-	// Log to TickerInstance table
-	s.tickerInstanceLogger.Log(userID, botID, fmt.Sprintf("%p", instance))
+	// Log the event
+	s.logTickerEvent(userID, botID, "INFO", "StartTicker", "Ticker started successfully")
+
+	return nil
+}
+
+func (s *TickerService) StopTicker(userID, botID string) error {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+
+	key := fmt.Sprintf("%s:%s", userID, botID)
+
+	instance, exists := s.tickers[key]
+	if !exists {
+		return fmt.Errorf("ticker not found for user %s and bot %s", userID, botID)
+	}
+
+	// Unsubscribe from all tokens
+	var tokens []uint32
+	for token := range instance.TokenMap {
+		tokens = append(tokens, token)
+	}
+
+	if len(tokens) > 0 {
+		if err := instance.Ticker.Unsubscribe(tokens); err != nil {
+			s.logTickerEvent(userID, botID, "ERROR", "StopTicker", fmt.Sprintf("Failed to unsubscribe: %v", err))
+			// Continue with stopping even if unsubscribe fails
+		}
+	}
+
+	// Stop the ticker
+	instance.Ticker.Stop()
+
+	// Close the connection
+	if err := instance.Ticker.Close(); err != nil {
+		s.logTickerEvent(userID, botID, "ERROR", "StopTicker", fmt.Sprintf("Failed to close connection: %v", err))
+	}
+
+	// Remove the ticker instance from the map
+	delete(s.tickers, key)
+
+	// Log the event
+	s.logTickerEvent(userID, botID, "INFO", "StopTicker", "Ticker stopped successfully")
 
 	return nil
 }

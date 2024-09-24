@@ -50,7 +50,16 @@ func (s *DBService) MakeTickerInstrumentTokenMap(tickerInstruments []string) (ma
 	return instrumentTokenMap, nil
 }
 
-func (s *DBService) SaveTickerInstruments(botID, userID string, instrumentTokenMap map[string]uint32) error {
+func (s *DBService) SetTickerInstruments(botID, userID string, instrumentTokenMap map[string]uint32) error {
+
+	// Delete all ticker instruments
+	err := s.repo.DeleteTickerInstruments(botID, userID)
+	if err != nil {
+		return fmt.Errorf("failed to delete ticker instruments: %w", err)
+	}
+
+	// Insert new ticker instruments
+	tickerInstruments := make([]models.TickerInstrument, 0, len(instrumentTokenMap))
 	for instrument, token := range instrumentTokenMap {
 		parts := strings.Split(instrument, ":")
 		if len(parts) != 2 {
@@ -68,13 +77,10 @@ func (s *DBService) SaveTickerInstruments(botID, userID string, instrumentTokenM
 			UpdatedAt:       now,
 		}
 
-		err := s.repo.UpsertTickerInstrument(tickerInstrument)
-		if err != nil {
-			return fmt.Errorf("failed to upsert instrument: %w", err)
-		}
+		tickerInstruments = append(tickerInstruments, tickerInstrument)
 	}
 
-	return nil
+	return s.repo.InsertTickerInstruments(tickerInstruments)
 }
 
 // Get TickerInstruments from the database

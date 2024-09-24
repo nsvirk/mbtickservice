@@ -22,6 +22,7 @@ func InitRoutes(e *echo.Echo, db *gorm.DB, tickerService *service.TickerService)
 
 	// /publish route
 	publishHandler := handlers.NewPublishHandler(db, tickerService)
-	protected.POST("/publish", publishHandler.PublishTicks)
+	protected.POST("/publish/start", publishHandler.StartPublishing)
+	protected.POST("/publish/stop", publishHandler.StopPublishing)
 
 }

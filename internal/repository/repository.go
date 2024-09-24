@@ -34,6 +34,16 @@ func (r *Repository) UpsertUser(user *models.User) error {
 	return result.Error
 }
 
+// DeleteTickerInstruments - delete all ticker instruments
+func (r *Repository) DeleteTickerInstruments(botID, userID string) error {
+	return r.db.Table(models.TickerInstrumentsTable).Where("bot_id = ? AND user_id = ?", botID, userID).Delete(&models.TickerInstrument{}).Error
+}
+
+// InsertTickerInstruments - insert multiple ticker instruments
+func (r *Repository) InsertTickerInstruments(tickerInstruments []models.TickerInstrument) error {
+	return r.db.Table(models.TickerInstrumentsTable).Create(&tickerInstruments).Error
+}
+
 // UpsertTickerInstrument - insert or update a ticker instrument
 func (r *Repository) UpsertTickerInstrument(tickerInstrument models.TickerInstrument) error {
 	err := r.db.Table(models.TickerInstrumentsTable).Clauses(clause.OnConflict{

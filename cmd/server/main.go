@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -13,6 +14,7 @@ import (
 
 	"github.com/nsvirk/mbtickservice/internal/api"
 	"github.com/nsvirk/mbtickservice/internal/config"
+	"github.com/nsvirk/mbtickservice/internal/logger"
 	"github.com/nsvirk/mbtickservice/internal/repository"
 	"github.com/nsvirk/mbtickservice/internal/service"
 )
@@ -42,9 +44,14 @@ func main() {
 	}
 	defer redisClient.Close()
 
+	// Initialize logger
+	appLogger := logger.NewAppLogger(db)
+	appLogger.Info("App initialized")
+
 	// Initialize ticker service
 	tickerService := service.NewTickerService(db, redisClient)
 	defer tickerService.Close()
+	appLogger.Info("Ticker service initialized")
 
 	// Initialize Echo server
 	e := echo.New()
@@ -56,6 +63,7 @@ func main() {
 	// Start server
 	go func() {
 		if err := e.Start(":" + cfg.ServerPort); err != nil && err != http.ErrServerClosed {
+			appLogger.Error(fmt.Sprintf("Failed to start server: %v", err))
 			log.Fatalf("Failed to start server: %v", err)
 		}
 	}()
@@ -70,8 +78,10 @@ func main() {
 	defer cancel()
 
 	if err := e.Shutdown(ctx); err != nil {
+		appLogger.Error(fmt.Sprintf("Failed to shutdown server: %v", err))
 		log.Fatal(err)
 	}
 
+	appLogger.Info("Server shut down gracefully")
 	log.Println("Server shut down gracefully")
 }
