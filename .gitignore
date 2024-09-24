@@ -35,3 +35,5 @@ Makefile
 
 # Miscellaneous
 .DS_Store
+mbtickservice.service
+.env.*
