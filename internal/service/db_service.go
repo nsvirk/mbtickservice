@@ -22,7 +22,7 @@ func (s *DBService) SaveUserConnection(userID, enctoken string, instrumentCt int
 	// Create a new user
 	user := models.User{
 		UserID:        userID,
-		Enctoken:      enctoken,
+		Enctoken:      enctoken[0:8] + "******",
 		InstrumentsCt: instrumentCt,
 		ConnectedAt:   time.Now(),
 	}
