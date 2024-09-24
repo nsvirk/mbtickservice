@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 
+	"github.com/nsvirk/mbtickservice/internal/config"
 	"github.com/redis/go-redis/v9"
 )
 
@@ -11,9 +12,10 @@ type RedisClient struct {
 	rdb *redis.Client
 }
 
-func NewRedisClient(addr string) (*RedisClient, error) {
+func NewRedisClient(cfg *config.Config) (*RedisClient, error) {
 	rdb := redis.NewClient(&redis.Options{
-		Addr: addr,
+		Addr:     fmt.Sprintf("%s:%s", cfg.RedisHost, cfg.RedisPort),
+		Password: cfg.RedisPassword,
 	})
 
 	_, err := rdb.Ping(context.Background()).Result()

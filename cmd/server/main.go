@@ -36,7 +36,7 @@ func main() {
 	defer sqlDB.Close()
 
 	// Initialize Redis client
-	redisClient, err := repository.NewRedisClient(cfg.RedisAddr)
+	redisClient, err := repository.NewRedisClient(cfg)
 	if err != nil {
 		log.Fatalf("Failed to initialize Redis: %v", err)
 	}
