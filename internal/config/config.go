@@ -6,6 +6,8 @@ import (
 )
 
 type Config struct {
+	AppName          string
+	AppVersion       string
 	PostgresURL      string
 	PostgresSchema   string
 	PostgresLogLevel string
@@ -18,6 +20,8 @@ type Config struct {
 func Load() (*Config, error) {
 
 	config := &Config{
+		AppName:          getEnv("MB_TDS_APP_NAME", "Moneybots Tick Data Service"),
+		AppVersion:       getEnv("MB_TDS_APP_VERSION", "1.0.0"),
 		PostgresURL:      getEnv("MB_TDS_PG_DSN", ""),
 		PostgresSchema:   getEnv("MB_TDS_PG_SCHEMA", ""),
 		PostgresLogLevel: getEnv("MB_TDS_PG_LOG_LEVEL", "error"),

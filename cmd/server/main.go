@@ -58,7 +58,7 @@ func main() {
 	e.HideBanner = true
 
 	// Initialize API routes
-	api.InitRoutes(e, db, tickerService)
+	api.InitRoutes(e, cfg, db, tickerService)
 
 	// Start server
 	go func() {
