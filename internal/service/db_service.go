@@ -5,8 +5,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/nsvirk/mbtickservice/internal/models"
-	"github.com/nsvirk/mbtickservice/internal/repository"
+	"github.com/nsvirk/moneybotstds/internal/models"
+	"github.com/nsvirk/moneybotstds/internal/repository"
 	"gorm.io/gorm"
 )
 

@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/nsvirk/mbtickservice/internal/config"
+	"github.com/nsvirk/moneybotstds/internal/config"
 	"github.com/redis/go-redis/v9"
 )
 

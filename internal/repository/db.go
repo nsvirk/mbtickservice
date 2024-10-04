@@ -3,8 +3,8 @@ package repository
 import (
 	"fmt"
 
-	"github.com/nsvirk/mbtickservice/internal/config"
-	"github.com/nsvirk/mbtickservice/internal/models"
+	"github.com/nsvirk/moneybotstds/internal/config"
+	"github.com/nsvirk/moneybotstds/internal/models"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"

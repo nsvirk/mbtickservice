@@ -18,37 +18,37 @@ type Config struct {
 func Load() (*Config, error) {
 
 	config := &Config{
-		PostgresURL:      getEnv("TS_PG_DSN", ""),
-		PostgresSchema:   getEnv("TS_PG_SCHEMA", ""),
-		PostgresLogLevel: getEnv("TS_PG_LOG_LEVEL", "error"),
-		RedisHost:        getEnv("TS_REDIS_HOST", ""),
-		RedisPort:        getEnv("TS_REDIS_PORT", ""),
-		RedisPassword:    getEnv("TS_REDIS_PASSWORD", ""),
-		ServerPort:       getEnv("TS_SERVER_PORT", ""),
+		PostgresURL:      getEnv("MB_TDS_PG_DSN", ""),
+		PostgresSchema:   getEnv("MB_TDS_PG_SCHEMA", ""),
+		PostgresLogLevel: getEnv("MB_TDS_PG_LOG_LEVEL", "error"),
+		RedisHost:        getEnv("MB_TDS_REDIS_HOST", ""),
+		RedisPort:        getEnv("MB_TDS_REDIS_PORT", ""),
+		RedisPassword:    getEnv("MB_TDS_REDIS_PASSWORD", ""),
+		ServerPort:       getEnv("MB_TDS_SERVER_PORT", ""),
 	}
 
 	if config.PostgresURL == "" {
-		return nil, fmt.Errorf("TS_PG_DSN is required")
+		return nil, fmt.Errorf("MB_TDS_PG_DSN is required")
 	}
 
 	if config.PostgresSchema == "" {
-		return nil, fmt.Errorf("TS_PG_SCHEMA is required")
+		return nil, fmt.Errorf("MB_TDS_PG_SCHEMA is required")
 	}
 
 	if config.RedisHost == "" {
-		return nil, fmt.Errorf("TS_REDIS_HOST is required")
+		return nil, fmt.Errorf("MB_TDS_REDIS_HOST is required")
 	}
 
 	if config.RedisPort == "" {
-		return nil, fmt.Errorf("TS_REDIS_PORT is required")
+		return nil, fmt.Errorf("MB_TDS_REDIS_PORT is required")
 	}
 
 	if config.RedisPassword == "" {
-		return nil, fmt.Errorf("TS_REDIS_PASSWORD is required")
+		return nil, fmt.Errorf("MB_TDS_REDIS_PASSWORD is required")
 	}
 
 	if config.ServerPort == "" {
-		return nil, fmt.Errorf("TS_SERVER_PORT is required")
+		return nil, fmt.Errorf("MB_TDS_SERVER_PORT is required")
 	}
 
 	return config, nil

@@ -6,8 +6,8 @@ import (
 	"strings"
 
 	"github.com/labstack/echo/v4"
-	"github.com/nsvirk/mbtickservice/internal/service"
-	"github.com/nsvirk/mbtickservice/pkg/response"
+	"github.com/nsvirk/moneybotstds/internal/service"
+	"github.com/nsvirk/moneybotstds/pkg/response"
 	"gorm.io/gorm"
 )
 

@@ -1,4 +1,4 @@
-# Moneybots TICK Service
+# Moneybots Tick Data Service
 
 ## Endpoints
 

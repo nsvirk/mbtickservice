@@ -1,4 +1,4 @@
-module github.com/nsvirk/mbtickservice
+module github.com/nsvirk/moneybotstds
 
 go 1.22.5
 

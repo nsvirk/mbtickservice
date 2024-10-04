@@ -9,9 +9,9 @@ import (
 
 	kiteticker "github.com/nsvirk/gokiteticker"
 	kitemodels "github.com/nsvirk/gokiteticker/models"
-	"github.com/nsvirk/mbtickservice/internal/logger"
-	"github.com/nsvirk/mbtickservice/internal/models"
-	"github.com/nsvirk/mbtickservice/internal/repository"
+	"github.com/nsvirk/moneybotstds/internal/logger"
+	"github.com/nsvirk/moneybotstds/internal/models"
+	"github.com/nsvirk/moneybotstds/internal/repository"
 	"gorm.io/gorm"
 )
 

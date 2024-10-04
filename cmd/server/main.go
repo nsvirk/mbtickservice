@@ -12,11 +12,11 @@ import (
 
 	"github.com/labstack/echo/v4"
 
-	"github.com/nsvirk/mbtickservice/internal/api"
-	"github.com/nsvirk/mbtickservice/internal/config"
-	"github.com/nsvirk/mbtickservice/internal/logger"
-	"github.com/nsvirk/mbtickservice/internal/repository"
-	"github.com/nsvirk/mbtickservice/internal/service"
+	"github.com/nsvirk/moneybotstds/internal/api"
+	"github.com/nsvirk/moneybotstds/internal/config"
+	"github.com/nsvirk/moneybotstds/internal/logger"
+	"github.com/nsvirk/moneybotstds/internal/repository"
+	"github.com/nsvirk/moneybotstds/internal/service"
 )
 
 func main() {

@@ -1,0 +1,28 @@
+name: Deploy Moneybots Tick Data Service to EC2
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Deploy to EC2
+        env:
+          PRIVATE_KEY: ${{ secrets.MONEYBOTS_EC2_SSH_PRIVATE_KEY }}
+          HOST: moneybots.app
+          USER: ec2-user
+          APP_PATH: /home/ec2-user/apps/tds/moneybotstds
+        run: |
+          echo "$PRIVATE_KEY" > private_key
+          chmod 600 private_key
+          ssh -i private_key -o StrictHostKeyChecking=no -o ConnectTimeout=10 ${USER}@${HOST} '
+            echo "Connection successful"
+            cd ${{ env.APP_PATH }} &&
+            make deploy
+          ' || echo "Deployment failed"
+          rm -f private_key

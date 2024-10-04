@@ -4,7 +4,7 @@ import (
 	"log"
 	"time"
 
-	"github.com/nsvirk/mbtickservice/internal/config"
+	"github.com/nsvirk/moneybotstds/internal/config"
 )
 
 var (

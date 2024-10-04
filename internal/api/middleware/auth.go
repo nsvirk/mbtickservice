@@ -5,7 +5,7 @@ import (
 	"strings"
 
 	"github.com/labstack/echo/v4"
-	"github.com/nsvirk/mbtickservice/pkg/response"
+	"github.com/nsvirk/moneybotstds/pkg/response"
 )
 
 // AuthMiddleware creates a new authorization middleware

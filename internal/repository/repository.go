@@ -4,7 +4,7 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/nsvirk/mbtickservice/internal/models"
+	"github.com/nsvirk/moneybotstds/internal/models"
 	"gorm.io/gorm"
 	"gorm.io/gorm/clause"
 )

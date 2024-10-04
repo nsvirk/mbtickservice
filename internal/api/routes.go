@@ -2,9 +2,9 @@ package api
 
 import (
 	"github.com/labstack/echo/v4"
-	"github.com/nsvirk/mbtickservice/internal/api/handlers"
-	"github.com/nsvirk/mbtickservice/internal/api/middleware"
-	"github.com/nsvirk/mbtickservice/internal/service"
+	"github.com/nsvirk/moneybotstds/internal/api/handlers"
+	"github.com/nsvirk/moneybotstds/internal/api/middleware"
+	"github.com/nsvirk/moneybotstds/internal/service"
 	"gorm.io/gorm"
 )
 

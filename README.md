@@ -1,4 +1,4 @@
-# Moneybots TICK Service
+# Moneybots Tick Data Service
 
 ## Run the application
 
@@ -9,13 +9,13 @@ go run cmd/server/main.go
 ## Build the application
 
 ```bash
-go build -o build/bin/mbtickservice cmd/server/main.go
+go build -o build/bin/moneybotstds cmd/server/main.go
 ```
 
 ## Project Structure
 
 ```text
-mbtickservice/
+moneybotstds/
 ├── cmd/
 │   └── server/
 │       └── main.go
