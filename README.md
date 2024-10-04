@@ -1,17 +1,5 @@
 # Moneybots Tick Data Service
 
-## Run the application
-
-```bash
-go run cmd/server/main.go
-```
-
-## Build the application
-
-```bash
-go build -o build/bin/moneybotstds cmd/server/main.go
-```
-
 ## Project Structure
 
 ```text
