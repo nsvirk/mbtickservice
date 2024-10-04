@@ -14,7 +14,7 @@ func InitRoutes(e *echo.Echo, db *gorm.DB, tickerService *service.TickerService)
 	middleware.RecoverMiddleware(e)
 
 	// Create a group for all API routes
-	ticks := e.Group("/ticks")
+	ticks := e.Group("")
 
 	// Create a group for protected routes
 	protected := ticks.Group("")
