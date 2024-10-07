@@ -41,7 +41,10 @@ func (r *Repository) DeleteTickerInstruments(botID, userID string) error {
 
 // InsertTickerInstruments - insert multiple ticker instruments
 func (r *Repository) InsertTickerInstruments(tickerInstruments []models.TickerInstrument) error {
-	return r.db.Table(models.TickerInstrumentsTable).Create(&tickerInstruments).Error
+	return r.db.
+		Table(models.TickerInstrumentsTable).
+		Create(&tickerInstruments).
+		Error
 }
 
 // UpsertTickerInstrument - insert or update a ticker instrument
@@ -77,6 +80,9 @@ func (r *Repository) GetInstrumentToken(exchange, tradingsymbol string) (uint32,
 // GetTickerInstruments - get the instruments from the API
 func (r *Repository) GetTickerInstruments(botID, userID string) ([]models.TickerInstrument, error) {
 	var tickerInstruments []models.TickerInstrument
-	err := r.db.Table(models.TickerInstrumentsTable).Where("user_id = ? AND bot_id = ?", userID, botID).Find(&tickerInstruments).Error
+	err := r.db.
+		Table(models.TickerInstrumentsTable).
+		Where("user_id = ? AND bot_id = ?", userID, botID).
+		Find(&tickerInstruments).Error
 	return tickerInstruments, err
 }

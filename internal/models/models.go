@@ -41,11 +41,11 @@ func (User) TableName() string {
 // TickerInstrument represents the ticker instruments table
 type TickerInstrument struct {
 	ID              uint32 `gorm:"primaryKey"`
-	UserID          string `gorm:"index;uniqueIndex:idx_user_bot_token,priority:1"`
-	BotID           string `gorm:"index;uniqueIndex:idx_user_bot_token,priority:2"`
+	UserID          string `gorm:"index;idx_user_bot_token,priority:1"`
+	BotID           string `gorm:"index;idx_user_bot_token,priority:2"`
+	InstrumentToken uint32 `gorm:"index;idx_user_bot_token,priority:3"`
 	Exchange        string
 	Tradingsymbol   string
-	InstrumentToken uint32    `gorm:"index;uniqueIndex:idx_user_bot_token,priority:3"`
 	UpdatedAt       time.Time `gorm:"autoUpdateTime"`
 }
 
