@@ -15,11 +15,7 @@ func InitRoutes(e *echo.Echo, cfg *config.Config, db *gorm.DB, tickerService *se
 	middleware.RecoverMiddleware(e)
 
 	// Create a group for all API routes
-	ticks := e.Group("")
-
-	// Create a group for protected routes
-	protected := ticks.Group("")
-	protected.Use(middleware.AuthMiddleware())
+	api := e.Group("")
 
 	// Index route
 	indexHandler := handlers.NewIndexHandler(cfg)
@@ -27,7 +23,9 @@ func InitRoutes(e *echo.Echo, cfg *config.Config, db *gorm.DB, tickerService *se
 
 	// /publish route
 	publishHandler := handlers.NewPublishHandler(db, tickerService)
-	protected.POST("/publish/start", publishHandler.StartPublishing)
-	protected.POST("/publish/stop", publishHandler.StopPublishing)
+	publishGroup := api.Group("/publish")
+	publishGroup.Use(middleware.AuthMiddleware())
+	publishGroup.POST("/start", publishHandler.StartPublishing)
+	publishGroup.POST("/stop", publishHandler.StopPublishing)
 
 }
